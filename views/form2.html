@@ -13,6 +13,12 @@
             <option value="green" name="color">Green</option>
             <option value="red" name="color">Red</option>
         </select>
+        <select class="form-control" name="color" id="color">
+            <option>--Select a color--</option>
+            <repeat group="{{ @colors }}" value="{{ @colorOption }}">
+                <option>{{ @colorOption }}</option>
+            </repeat>
+        </select>
         <br><br>
         <button type="submit" value="Submit">Submit</button>
     </form>
