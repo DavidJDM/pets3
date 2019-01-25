@@ -6,7 +6,12 @@
 </head>
 <body>
 
-<form method="post" action="#">
+<form method="post" action="">
+
+<check if="{{ isset(@errors['animal']) }}">
+  <p>{{ @errors['animal'] }}</p>
+</check>
+
 <strong>Animal </strong><input name="animal" type="text">
 <br>
 <br>
