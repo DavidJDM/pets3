@@ -14,6 +14,8 @@ $f3->set('colors', array('pink', 'green', 'blue'));
 //Turn of Fat-Free error reporting
 $f3->set('DEBUG', 3);
 
+require_once ('model/validation-functions.php');
+
 //Define a route with a one parameter
 $f3->route('GET /@type', function($f3, $params) {
     print_r($params);
@@ -52,10 +54,23 @@ $f3->route('GET /', function() {
 });
 
 //Order route
-$f3->route('GET|POST /order', function() {
+$f3->route('GET|POST /order',
+    function($f3) {
+        $_SESSION = array();
+
+        if(isset($_POST['animal'])) {
+
+            $animal = $_POST['animal'];
+            if(validText($animal)) {
+                $_SESSION['animal'] = $animal;
+                $f3->reroute('/order2');
+            } else {
+                $f3->("errors['animal']", "Please enter an animal.");
+            }
+        }
         $template = new Template();
         echo $template->render('views/form1.html');
-});
+    });
 
 $f3->route('GET|POST /order2', function() {
     $_SESSION['animal'] = $_POST['animal'];
